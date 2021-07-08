@@ -9,7 +9,9 @@ exports.success = function (req, res, mensagem, status) {
 }
 
 
-exports.error = function (req, res, mensagem, status) {
+exports.error = function (req, res, mensagem, status, details) {
+   
+    console.error('[response error] ' + details);
 
     res.status(status || 500 ).send(
        { error: mensagem,
