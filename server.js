@@ -9,17 +9,23 @@ app.use(router);
 
 
 router.get('/', function (req, res) {
+    console.log(req.headers);
+    res.header({
+        "custom-header": "Nosso valor personalizado"
+    })
     res.send('Ola desde get')
 });
 
-router.post('/', function (req, res) {
-    res.send('Ola desde post')
+router.post('/mensagem', function (req, res) {
+     console.log(req.query);
+    console.log(req.body);
+    res.status(201).send({ error: '', body: 'Criado corretamente'});
 });
 
 router.delete('/mensagem', function (req, res) {
      console.log(req.query);
     console.log(req.body);
-    res.send('Mensagem ' +  req.body.text + ' deletada corretamente');
+    res.status(201).send({ error: '', body: 'Criado corretamente'});
 });
 
 
