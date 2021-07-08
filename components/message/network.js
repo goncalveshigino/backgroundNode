@@ -1,5 +1,6 @@
-const express = require('express')
-const response = require('../../network/response')
+const express = require('express');
+const response = require('../../network/response');
+const controller = require('./controller');
 
 const router = express.Router();
 
@@ -12,12 +13,16 @@ router.get('/', function (req, res) {
 });
 
 router.post('/', function (req, res) {
-    console.log(req.query);
+   
+    controller.addMessage(req.body.user, req.body.message)
+        .then((fullMessage) => {
+            response.success(req, res, fullMessage, 201);
+        })
+        .catch(e => {
+            response.error(req, res, 'Informacao invalida', 400, 'Error en el controlaor');
+        })
     
-    if (req.query.error == "ok") {
-        response.error(req, res, 'Error inesperado', 500, 'Apenas uma simulacao de error');
-    }
-      response.success(req, res, 'Criado corretamente', 201);
+
 });
 
 router.delete('/', function (req, res) {
